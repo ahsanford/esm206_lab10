@@ -1,0 +1,83 @@
+---
+title: "esm206_lab10"
+author: "Abigail Sanford"
+date: "11/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#Attach Packages
+library(tidyverse)
+library(janitor)
+library(usethis)
+
+library(beepr)
+library(praise)
+library(cowsay)
+library(sf)
+library(paletteer)
+```
+
+## beepr::beep()
+Beepr beeps: i.e. after the code is running it will give a beep sound
+
+In the console you can write `beep(insert_#_btwn_1-12)` and get a preset sound!
+
+beep(1)
+beep(2)
+beep(3)
+beep(4)
+beep(5)
+
+Use `beep()` to give yourself an audio alert.
+
+## Write a `for loop + beep`
+
+song: 99 beer bottles on the wall
+```{r, eval = FALSE}
+for(i in rev(seq(1:9999))){print(paste(i, "bottles of beer on the wall"))}
+
+beep(4) # if you don't want this to make a sound when you knit it, make sure to do eval = FALSE in the setup
+```
+
+
+the reverse `rev` and sequence `seq` functions will give us a sequence that will count backwards between the two numbers we tell it.
+
+For each of these elements, we want it to print out a line from the song. we use `print(i)` to do that. and if we want additional text to be written, we can use `paste(i, "insert what you want written after the sequence here")`
+
+
+## `praise` is nice
+
+```{r}
+praise("${EXCLAMATION}!!! This code works ${adverb_manner}!") # this is case sensitive. So if its all in caps, then it will follow that caps in the output.
+
+praise("Holy ${creating}, Batman - this code works ${ADVERB_MANNER}!")
+```
+
+
+## `cowsay::say` to have animals say something
+
+```{r}
+say("I love tacos!") # default is cat
+
+say("I love tacos!", by = "shark")
+
+say("I love tacos!", by = "trilobite")
+```
+
+
+## `usethis` for everything
+
+Can be used to update your r profile, and change what will show up everytime you start a new r session.
+
+
+
+
+
+
+
+
+
+
