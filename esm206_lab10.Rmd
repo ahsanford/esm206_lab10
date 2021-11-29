@@ -72,7 +72,79 @@ say("I love tacos!", by = "trilobite")
 
 Can be used to update your r profile, and change what will show up everytime you start a new r session.
 
+If we make an Rproject first, and then we want to make it version controlled we do the following:
 
+R Project first, then git and GitHub repo
+
+- usethis::use_git()
+- usethis::use_github()
+
+The above are the two steps we need to do.
+Make sure to write this code in the console because we only need to do this once. 
+
+In the console put `usethis::use_git()`. Then say that you want to commit, and that its ok to restart r.
+
+Then put this into the console `usethis::use_github()`. Say `yeah` when it asks if you want to proceed (just put the number that is located next to the option it gives you and hit enter).
+
+Change the name of a main branch in git hub:
+- click `1 branch`
+- click the pen next to the branch name. 
+- Rename the branch to `main` or whatever you want
+- Click the name of the repo
+- A pop up will tell you which code you need to put into the Rstudio terminal in the bottom left box (you can just copy and paste it).
+- then in the git tab in the top right box, hit the refresh button. You should see the renamed branch name now.
+
+## `paletteer`: aggregated color palettes
+
+In console put this: `view(palettes_d_names)`. It will show you all the different color palettes available.
+
+```{r}
+storms %>% # default data set in dplyr
+  group_by(name) %>% 
+  summarize(min_pressure = min(pressure, na.rm = TRUE)) %>% # minimum pressure for each storm
+  slice_min (n = 10, min_pressure) %>% # bottom 10 values in dataset
+  ggplot(aes(x = min_pressure, y = name)) +
+  geom_col(aes(fill = name)) +# change the colomn color based on name. It will give the default color scheme. 
+  scale_fill_paletteer_d("palettetown::wailmer") # use paletter to access a different color palette. Give it the palette name with `"pkg::palette" like "beyonce::X116"
+  
+```
+
+In the console, you can write `paletteer_d("palettetown::volbeat")` (with the pkg_name::palette_name) to get the hexidecimal codes of the colors. Then you can take the color you like and input it with `fill = #E05060FF` in your ggplot. 
+
+## Map of Jornada LTER Vegetation
+
+If you have other file types, people have built other packages to read in the file types. Use google to find them.
+
+- You can use `read_sf` for .kml files
+
+```{r}
+jornada_veg <- read_sf("doc.kml") %>% 
+  select(Name) %>% 
+  clean_names()
+
+ggplot() + 
+  geom_sf(data = jornada_veg, (aes(fill = name))) + # make a map of the data
+  scale_fill_paletteer_d("ggthemes::manyeys") + #customize the color palate (this one is good for vegetation mapping)
+  theme_minimal() + # Change the theme
+  labs(title = "Jornada Basin LTER Vegetation")
+  
+
+# Update this map:
+# Each vegetation type has a different fill color
+# Update the theme
+# Customize the color palette
+
+#If you want to share just the image of the plot with someone:
+
+ggsave(filename = "my_awesome_jornada_map.png", width = 8, height = 5) # you will see a png file pop up in your files, that you can share with people. It's cool! It has a transparent background.
+```
+
+When we open the .kml file, we can see the discrete zones of dominant vegetation. Rstudio will assume that we want to retain the geometry (polygon) information when we are working with the data like it's a normal data frame and we don't have to worry about it as we play with it. 
+
+Then we can create a map with ggplot
+
+
+how to color multiple things the same color, like if you wanted all the plants to be one color and the animals to be another. You can do this with google.
 
 
 
